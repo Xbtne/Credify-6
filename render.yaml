@@ -1,0 +1,25 @@
+services:
+  # 1. Credify Website (Static Site)
+  - type: web
+    name: credify-web
+    env: static
+    plan: free
+    publishPath: website
+    pullRequestPreviewsEnabled: false
+
+  # 2. Credify Discord Bot & API (Node Web Service)
+  - type: web
+    name: credify-bot
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CLIENT_ID
+        sync: false
+      - key: GUILD_ID
+        sync: false
+      - key: PORT
+        value: 10000

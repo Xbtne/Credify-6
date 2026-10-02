@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Credify • Premium Discord Growth & Services Marketplace</title>
+  <meta name="description" content="Credify is the premier marketplace for Discord growth services, server boosts, custom bots, members, and digital assets. Fast delivery, secure checkout, and 24/7 dedicated support.">
+  <meta name="keywords" content="Discord services, server boosts, discord members, discord bots, credify, server growth, digital marketplace">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Credify • Grow Smarter. Build Bigger. Stay Ahead.">
+  <meta property="og:description" content="Premium Discord services, powerful tools, and reliable support — everything you need to take your community further.">
+  <meta property="og:image" content="assets/banner.png">
+  <meta name="theme-color" content="#00A8FF">
+  
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-dark text-light antialiased">
+  
+  <!-- Animated Background Canvas -->
+  <canvas id="particleCanvas" class="fixed-canvas"></canvas>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar-wrapper fixed-top">
+    <nav class="navbar container">
+      <a href="#hero" class="nav-brand">
+        <div class="logo-box">
+          <img src="assets/logo.png" alt="Credify Logo" class="brand-logo">
+          <div class="logo-glow"></div>
+        </div>
+        <span class="brand-name">CREDI<span class="text-cyan">FY</span></span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="nav-links">
+        <a href="#hero" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#services" class="nav-link"><i class="fa-solid fa-cube"></i> Services</a>
+        <a href="#stock" class="nav-link"><i class="fa-solid fa-chart-line"></i> Stock <span class="nav-pill">LIVE</span></a>
+        <a href="#why" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
+        <a href="#about" class="nav-link"><i class="fa-solid fa-circle-info"></i> About</a>
+        <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+        <a href="#support" class="nav-link"><i class="fa-solid fa-headset"></i> Support</a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <button class="btn btn-outline" id="btnTrackOrder">
+          <i class="fa-solid fa-box-open"></i> <span>Track Order</span>
+        </button>
+        <button class="btn btn-glass" id="btnLogin">
+          <i class="fa-brands fa-discord"></i> <span id="loginText">Login</span>
+        </button>
+        <button class="btn btn-primary btn-glow" id="btnNavGetStarted">
+          <i class="fa-solid fa-bolt"></i> <span>Get Started</span>
+        </button>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Navigation Full Screen Menu -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="nav-brand">
+        <img src="assets/logo.png" alt="Credify" class="brand-logo-sm">
+        <span class="brand-name">CREDI<span class="text-cyan">FY</span></span>
+      </div>
+      <button class="drawer-close" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="drawer-links">
+      <a href="#hero" class="drawer-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="#services" class="drawer-link"><i class="fa-solid fa-cube"></i> Services</a>
+      <a href="#stock" class="drawer-link"><i class="fa-solid fa-chart-line"></i> Live Stock</a>
+      <a href="#why" class="drawer-link"><i class="fa-solid fa-shield-halved"></i> Why Credify</a>
+      <a href="#about" class="drawer-link"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="#faq" class="drawer-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+      <a href="#support" class="drawer-link"><i class="fa-solid fa-headset"></i> Support</a>
+    </div>
+    <div class="drawer-footer">
+      <button class="btn btn-outline btn-block" id="mobileTrackBtn"><i class="fa-solid fa-box-open"></i> Track Order</button>
+      <button class="btn btn-primary btn-block btn-glow" id="mobileGetStartedBtn"><i class="fa-solid fa-bolt"></i> Browse Services</button>
+    </div>
+  </div>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          <span class="badge-text"><i class="fa-brands fa-discord"></i> Official Discord Marketplace • Fast & Reliable</span>
+        </div>
+        
+        <h1 class="hero-title">
+          BUILD YOUR SERVER. <br>
+          <span class="gradient-text">GROW WITH CREDIFY.</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+          Premium Discord services, powerful tools, and reliable support — everything you need to take your community further.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#services" class="btn btn-primary btn-lg btn-glow">
+            <i class="fa-solid fa-cart-shopping"></i> Browse Services
+          </a>
+          <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-lg">
+            <i class="fa-brands fa-discord text-blue"></i> Join Discord
+          </a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <div class="metric-icon"><i class="fa-solid fa-bolt text-cyan"></i></div>
+            <div class="metric-text">
+              <span class="metric-val">Instant</span>
+              <span class="metric-label">Fast Processing</span>
+            </div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <div class="metric-icon"><i class="fa-solid fa-shield-check text-green"></i></div>
+            <div class="metric-text">
+              <span class="metric-val">100% Secure</span>
+              <span class="metric-label">Encrypted Checkout</span>
+            </div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <div class="metric-icon"><i class="fa-solid fa-headset text-blue"></i></div>
+            <div class="metric-text">
+              <span class="metric-val">24/7 Desk</span>
+              <span class="metric-label">Dedicated Staff</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Graphic -->
+      <div class="hero-visual">
+        <div class="visual-wrapper">
+          <div class="orb-backdrop"></div>
+          <div class="spinning-ring ring-1"></div>
+          <div class="spinning-ring ring-2"></div>
+          
+          <div class="logo-3d-card float-anim">
+            <img src="assets/logo.png" alt="Credify 3D Emblem" class="hero-3d-logo">
+            <div class="logo-highlight"></div>
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="floating-badge badge-top-right glass-card">
+            <i class="fa-solid fa-users text-cyan"></i>
+            <div>
+              <span class="badge-title">+1,000 Members</span>
+              <span class="badge-sub">High Quality Delivery</span>
+            </div>
+          </div>
+
+          <div class="floating-badge badge-bottom-left glass-card">
+            <i class="fa-solid fa-crown text-amber"></i>
+            <div>
+              <span class="badge-title">Server Boosts</span>
+              <span class="badge-sub">Level 3 Unlocked</span>
+            </div>
+          </div>
+
+          <div class="floating-badge badge-bottom-right glass-card">
+            <i class="fa-solid fa-robot text-blue"></i>
+            <div>
+              <span class="badge-title">Custom Bots</span>
+              <span class="badge-sub">24/7 High Uptime</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CREDIFY ================= -->
+  <section id="why" class="why-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-gem"></i> THE CREDIFY ADVANTAGE</span>
+        <h2 class="section-title">Why Choose <span class="gradient-text">Credify</span></h2>
+        <p class="section-subtitle">Engineered for community owners who demand reliability, speed, and genuine quality.</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card glass-card hover-glow">
+          <div class="why-icon-box cyan-glow">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3 class="why-title">Fast Service</h3>
+          <p class="why-desc">
+            Automated workflows and rapid dispatch ensure your orders, boosts, and setups begin processing immediately after confirmation.
+          </p>
+          <div class="why-feature-list">
+            <span><i class="fa-solid fa-check text-cyan"></i> Instant start times</span>
+            <span><i class="fa-solid fa-check text-cyan"></i> Automated queue handling</span>
+          </div>
+        </div>
+
+        <div class="why-card glass-card hover-glow">
+          <div class="why-icon-box green-glow">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="why-title">Secure Checkout</h3>
+          <p class="why-desc">
+            Protected transactions with support for major cryptocurrencies, CashApp, and digital payment methods with no hidden fees.
+          </p>
+          <div class="why-feature-list">
+            <span><i class="fa-solid fa-check text-green"></i> Crypto & CashApp ready</span>
+            <span><i class="fa-solid fa-check text-green"></i> Encrypted order processing</span>
+          </div>
+        </div>
+
+        <div class="why-card glass-card hover-glow">
+          <div class="why-icon-box blue-glow">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <h3 class="why-title">Dedicated Support</h3>
+          <p class="why-desc">
+            Direct access to knowledgeable support agents via interactive Discord ticket desks and web inquiry management.
+          </p>
+          <div class="why-feature-list">
+            <span><i class="fa-solid fa-check text-blue"></i> Real human assistance</span>
+            <span><i class="fa-solid fa-check text-blue"></i> Fast response windows</span>
+          </div>
+        </div>
+
+        <div class="why-card glass-card hover-glow">
+          <div class="why-icon-box purple-glow">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <h3 class="why-title">Premium Services</h3>
+          <p class="why-desc">
+            Every product is rigorously vetted for maximum retention, stability, compliance, and guaranteed delivery warranty.
+          </p>
+          <div class="why-feature-list">
+            <span><i class="fa-solid fa-check text-purple"></i> Warranty coverage included</span>
+            <span><i class="fa-solid fa-check text-purple"></i> High stability standards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES SECTION ================= -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-layer-group"></i> OUR CATALOG</span>
+        <h2 class="section-title">Explore Our <span class="gradient-text">Premium Services</span></h2>
+        <p class="section-subtitle">Select a package tailored for your Discord community’s growth and operational needs.</p>
+      </div>
+
+      <!-- Service Category Tabs -->
+      <div class="service-tabs">
+        <button class="tab-btn active" data-category="all"><i class="fa-solid fa-grid-2"></i> All Services</button>
+        <button class="tab-btn" data-category="growth"><i class="fa-solid fa-users"></i> Growth & Members</button>
+        <button class="tab-btn" data-category="boosts"><i class="fa-solid fa-rocket"></i> Server Boosts</button>
+        <button class="tab-btn" data-category="bots"><i class="fa-solid fa-robot"></i> Bots & Tools</button>
+        <button class="tab-btn" data-category="custom"><i class="fa-solid fa-wand-magic-sparkles"></i> Custom & Digital</button>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="services-grid" id="servicesGrid">
+        <!-- Dynamically rendered via JS or static fallbacks -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STOCK SECTION (/stock) ================= -->
+  <section id="stock" class="stock-section">
+    <div class="container">
+      <div class="stock-header-card glass-card">
+        <div class="stock-header-info">
+          <div class="stock-badge">
+            <span class="pulse-dot"></span>
+            <span>REAL-TIME INVENTORY & RATES</span>
+          </div>
+          <h2 class="stock-main-title">Live <span class="gradient-text">/stock</span> Dashboard</h2>
+          <p class="stock-sub">
+            Check real-time stock levels, current rates, and availability. Direct API-ready data synced with our order pipeline.
+          </p>
+        </div>
+
+        <div class="stock-controls">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="stockSearchInput" placeholder="Search item (e.g. Robux, Members, Boosts)...">
+          </div>
+          <button class="btn btn-outline" id="btnRefreshStock" title="Refresh stock data">
+            <i class="fa-solid fa-rotate"></i> <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stock Table / Grid -->
+      <div class="stock-table-wrapper glass-card">
+        <div class="table-responsive">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th>PRODUCT</th>
+                <th>CATEGORY</th>
+                <th>CURRENT STOCK</th>
+                <th>RATE / UNIT</th>
+                <th>DEMAND</th>
+                <th>STATUS</th>
+                <th>LAST UPDATED</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="stockTableBody">
+              <!-- Rendered via stock.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Stock Banner Card -->
+      <div class="stock-promo-banner glass-card">
+        <img src="assets/stock_banner.png" alt="Credify Stock" class="stock-promo-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT SECTION ================= -->
+  <section id="about" class="about-section">
+    <div class="container about-grid">
+      <div class="about-visual">
+        <div class="about-card-stack">
+          <div class="stack-card glass-card stack-1">
+            <div class="stack-icon"><i class="fa-solid fa-server text-cyan"></i></div>
+            <h4>Server Scalability</h4>
+            <p>Built to help servers transition from small groups into massive thriving hubs.</p>
+          </div>
+          <div class="stack-card glass-card stack-2">
+            <div class="stack-icon"><i class="fa-solid fa-lock text-green"></i></div>
+            <h4>Safety & Compliance</h4>
+            <p>Carefully calibrated delivery rates to ensure zero disruption to your guild.</p>
+          </div>
+          <div class="stack-card glass-card stack-3">
+            <div class="stack-icon"><i class="fa-solid fa-medal text-amber"></i></div>
+            <h4>Vetted Quality</h4>
+            <p>Every tool, bot, and service undergoes quality checks before release.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <span class="section-tag"><i class="fa-solid fa-building"></i> ABOUT CREDIFY</span>
+        <h2 class="section-title">Built for Serious <br><span class="gradient-text">Community Leaders</span></h2>
+        <p class="about-text">
+          Credify was founded with a singular mission: to provide a clean, modern, and trustworthy marketplace for Discord community creators. We eliminate the guesswork and shady dealings common in the space by offering standardized pricing, transparent stock levels, and professional customer care.
+        </p>
+        <p class="about-text">
+          Whether you need Level 3 Server Boosts to unlock 384Kbps audio and 100MB uploads, tailored member growth campaigns, or custom Discord automation bots, Credify provides the tools to help you succeed.
+        </p>
+
+        <div class="about-stats-row">
+          <div class="stat-box">
+            <span class="stat-num">99.9%</span>
+            <span class="stat-label">Uptime & Reliability</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">&lt; 15m</span>
+            <span class="stat-label">Avg Support Response</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Dedicated Delivery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SUPPORT SECTION ================= -->
+  <section id="support" class="support-section">
+    <div class="container">
+      <div class="support-card glass-card">
+        <div class="support-grid">
+          <div class="support-text-side">
+            <span class="section-tag"><i class="fa-solid fa-life-ring"></i> ASSISTANCE DESK</span>
+            <h2 class="support-title">Need Help? <br><span class="gradient-text">We’re Here For You.</span></h2>
+            <p class="support-desc">
+              Have questions regarding an order, payment options, or need a custom quote? Our dedicated staff team is active 24/7 to assist.
+            </p>
+
+            <div class="support-channels">
+              <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="support-channel-item glass-card hover-glow">
+                <div class="channel-icon discord-bg"><i class="fa-brands fa-discord"></i></div>
+                <div class="channel-info">
+                  <h4>Discord Ticket Portal</h4>
+                  <p>Open a Support or Purchase ticket directly on our Discord server.</p>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
+              </a>
+
+              <div class="support-channel-item glass-card hover-glow" id="btnOpenWebTicket">
+                <div class="channel-icon web-bg"><i class="fa-solid fa-ticket"></i></div>
+                <div class="channel-info">
+                  <h4>Web Ticket / Inquiry</h4>
+                  <p>Submit a quick inquiry directly through our website form.</p>
+                </div>
+                <i class="fa-solid fa-chevron-right channel-arrow"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Contact Form -->
+          <div class="support-form-side">
+            <form id="contactForm" class="contact-form glass-card">
+              <h3 class="form-title"><i class="fa-solid fa-envelope text-cyan"></i> Send a Direct Inquiry</h3>
+              
+              <div class="form-group">
+                <label for="contactDiscord">Discord Tag / Username <span class="text-cyan">*</span></label>
+                <div class="input-icon-wrapper">
+                  <i class="fa-brands fa-discord"></i>
+                  <input type="text" id="contactDiscord" placeholder="e.g. username#0000 or @username" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactSubject">Inquiry Topic <span class="text-cyan">*</span></label>
+                <div class="input-icon-wrapper">
+                  <i class="fa-solid fa-tag"></i>
+                  <select id="contactSubject" required>
+                    <option value="" disabled selected>Select a topic</option>
+                    <option value="purchase">Purchase Inquiry / Custom Order</option>
+                    <option value="order_status">Existing Order Status</option>
+                    <option value="stock_restock">Stock / Restock Question</option>
+                    <option value="technical">Bot & Technical Support</option>
+                    <option value="other">General Question</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">Message / Details <span class="text-cyan">*</span></label>
+                <textarea id="contactMessage" rows="4" placeholder="Describe your inquiry or order ID in detail..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block btn-glow" id="contactSubmitBtn">
+                <i class="fa-solid fa-paper-plane"></i> Submit Inquiry
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ SECTION ================= -->
+  <section id="faq" class="faq-section">
+    <div class="container faq-container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-circle-question"></i> FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="section-title">Everything You <span class="gradient-text">Need to Know</span></h2>
+        <p class="section-subtitle">Clear answers to common questions about ordering, delivery, and payments.</p>
+      </div>
+
+      <div class="faq-accordion" id="faqAccordion">
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-circle-check text-cyan"></i> How does the ordering process work?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Ordering is simple and straightforward: browse our catalog, select your desired tier or quantity, and click <strong>Order Now</strong>. Enter your Discord server invite link or username, pick your payment method (Crypto, CashApp, Card, or PayPal), and complete checkout. You will receive a unique Order ID to track your order in real time.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-bolt text-cyan"></i> What are the typical delivery timeframes?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Most automated orders (like Server Boosts and Member Packages) begin processing within minutes of payment confirmation. Custom Discord bot setups and tailored growth packages are delivered within 1–24 hours depending on project scope.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-credit-card text-cyan"></i> What payment methods do you accept?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              We support a wide variety of secure payment methods, including major Cryptocurrencies (Bitcoin, Ethereum, Litecoin, USDT), CashApp, Credit/Debit Cards, and PayPal. All payments are processed through secure gateways.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-shield-halved text-cyan"></i> Are Server Boosts and Services safe for my server?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Yes, absolutely. All boosts and growth methods adhere strictly to standard delivery protocols and are applied safely without requiring bot permissions or administrator credentials over your guild.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-rotate-left text-cyan"></i> What is your warranty and refund policy?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              We offer comprehensive warranty coverage on Server Boosts (1-month and 3-month options). If any boost drops prematurely, our system or staff will replace it promptly. Full details can be reviewed in our Refund Policy.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-chart-simple text-cyan"></i> How frequently is the /stock section updated?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Our live stock dashboard updates in real time based on active inventory supplies and market rates. You can click the "Refresh" button on the Stock section at any moment to pull the latest status.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <a href="#hero" class="nav-brand">
+          <img src="assets/logo.png" alt="Credify" class="brand-logo-sm">
+          <span class="brand-name">CREDI<span class="text-cyan">FY</span></span>
+        </a>
+        <p class="footer-tagline">
+          “Grow smarter. Build bigger. Stay ahead.”
+        </p>
+        <p class="footer-desc">
+          Credify is the premier marketplace offering Discord growth services, server boosts, custom bot solutions, and digital tooling.
+        </p>
+        <div class="footer-socials">
+          <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="social-btn" title="Join Discord"><i class="fa-brands fa-discord"></i></a>
+          <a href="#" class="social-btn" title="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-heading">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#stock">Live Stock</a></li>
+          <li><a href="#why">Why Credify</a></li>
+          <li><a href="#about">About Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-heading">Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services" data-cat="growth">Discord Members</a></li>
+          <li><a href="#services" data-cat="boosts">Server Boosts</a></li>
+          <li><a href="#services" data-cat="bots">Custom Discord Bots</a></li>
+          <li><a href="#services" data-cat="growth">Growth Campaigns</a></li>
+          <li><a href="#services" data-cat="custom">Digital Assets</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-heading">Legal & Help</h4>
+        <ul class="footer-links">
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#support">Support Desk</a></li>
+          <li><button class="footer-link-btn" id="btnOpenTos">Terms of Service</button></li>
+          <li><button class="footer-link-btn" id="btnOpenPrivacy">Privacy Policy</button></li>
+          <li><button class="footer-link-btn" id="btnOpenRefund">Refund Policy</button></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <p class="copyright">&copy; <span id="yearSpan"></span> Credify. All rights reserved. Not affiliated with Discord Inc.</p>
+        <div class="status-indicator">
+          <span class="pulse-dot green-dot"></span>
+          <span>All Systems Operational</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. CHECKOUT / ORDER MODAL -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <i class="fa-solid fa-cart-shopping text-cyan"></i>
+          <div>
+            <h3 class="modal-title">Place Your Order</h3>
+            <p class="modal-subtitle">Fast, encrypted & automated dispatch</p>
+          </div>
+        </div>
+        <button class="modal-close" id="closeCheckoutModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="orderForm">
+          <!-- Step 1: Selected Product -->
+          <div class="order-section">
+            <label class="section-label">1. Selected Service</label>
+            <div class="selected-product-box glass-card">
+              <div class="prod-icon-box" id="modalProdIcon"><i class="fa-solid fa-rocket"></i></div>
+              <div class="prod-details">
+                <h4 id="modalProdTitle">Server Boosts (Level 3)</h4>
+                <p id="modalProdDesc">14x Boosts • 1 Month Warranty</p>
+              </div>
+              <div class="prod-price-box">
+                <span class="prod-unit-price" id="modalProdPrice">$14.99</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantity / Tier Selection -->
+          <div class="order-section">
+            <label class="section-label" for="orderQuantity">2. Quantity / Package Size</label>
+            <div class="quantity-control">
+              <button type="button" class="qty-btn" id="qtyMinus"><i class="fa-solid fa-minus"></i></button>
+              <input type="number" id="orderQuantity" min="1" max="100" value="1" readonly>
+              <button type="button" class="qty-btn" id="qtyPlus"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+
+          <!-- Target Discord Details -->
+          <div class="order-section">
+            <label class="section-label" for="orderTarget">3. Delivery Destination</label>
+            <div class="input-icon-wrapper">
+              <i class="fa-brands fa-discord"></i>
+              <input type="text" id="orderTarget" placeholder="Permanent Server Invite Link (https://discord.gg/...)" required>
+            </div>
+            <span class="input-helper">Please ensure the invite link has unlimited uses and does not expire.</span>
+          </div>
+
+          <!-- Discord Contact Tag -->
+          <div class="order-section">
+            <label class="section-label" for="orderCustomer">4. Your Discord Username</label>
+            <div class="input-icon-wrapper">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="orderCustomer" placeholder="e.g. username or username#0000" required>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="order-section">
+            <label class="section-label">5. Select Payment Method</label>
+            <div class="payment-methods-grid">
+              <label class="payment-option selected">
+                <input type="radio" name="paymentMethod" value="crypto" checked>
+                <div class="payment-card">
+                  <i class="fa-brands fa-bitcoin text-amber"></i>
+                  <span>Crypto (LTC/BTC/USDT)</span>
+                </div>
+              </label>
+
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="cashapp">
+                <div class="payment-card">
+                  <i class="fa-solid fa-dollar-sign text-green"></i>
+                  <span>CashApp</span>
+                </div>
+              </label>
+
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="card">
+                <div class="payment-card">
+                  <i class="fa-solid fa-credit-card text-cyan"></i>
+                  <span>Credit / Debit Card</span>
+                </div>
+              </label>
+
+              <label class="payment-option">
+                <input type="radio" name="paymentMethod" value="paypal">
+                <div class="payment-card">
+                  <i class="fa-brands fa-paypal text-blue"></i>
+                  <span>PayPal</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Promo Code -->
+          <div class="order-section">
+            <div class="promo-box">
+              <input type="text" id="promoCodeInput" placeholder="Promo code (Try: CREDIFY10)">
+              <button type="button" class="btn btn-outline" id="btnApplyPromo">Apply</button>
+            </div>
+            <span id="promoMessage" class="promo-feedback"></span>
+          </div>
+
+          <!-- Summary & Totals -->
+          <div class="order-summary-box glass-card">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span id="summarySubtotal">$14.99</span>
+            </div>
+            <div class="summary-row" id="discountRow" style="display: none;">
+              <span class="text-green">Discount (<span id="discountPercent">10%</span>):</span>
+              <span class="text-green" id="summaryDiscount">-$1.50</span>
+            </div>
+            <div class="summary-row total-row">
+              <span>Total Due:</span>
+              <span class="total-price" id="summaryTotal">$14.99</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg btn-glow mt-4" id="btnSubmitOrder">
+            <i class="fa-solid fa-lock"></i> Submit & Generate Order
+          </button>
+        </form>
+
+        <!-- Order Result Screen (Hidden by default) -->
+        <div id="orderSuccessScreen" class="order-success-view" style="display: none;">
+          <div class="success-icon-badge"><i class="fa-solid fa-check"></i></div>
+          <h3 class="success-title">Order Placed Successfully!</h3>
+          <p class="success-desc">Your order has been logged into the Credify processing queue.</p>
+          
+          <div class="order-id-badge">
+            <span>ORDER ID:</span>
+            <strong id="createdOrderId">CRD-8921-X</strong>
+            <button class="btn-copy" id="btnCopyOrderId" title="Copy Order ID"><i class="fa-regular fa-copy"></i></button>
+          </div>
+
+          <div class="order-next-steps glass-card">
+            <h4><i class="fa-solid fa-arrow-right text-cyan"></i> Next Steps:</h4>
+            <ol>
+              <li>Save your <strong>Order ID</strong> for live tracking.</li>
+              <li>Complete payment via your chosen method or open a <strong>Purchase Ticket</strong> on our Discord with your Order ID.</li>
+              <li>Delivery begins promptly once verified!</li>
+            </ol>
+          </div>
+
+          <div class="success-actions">
+            <button class="btn btn-primary" id="btnViewTrackFromSuccess"><i class="fa-solid fa-box-open"></i> Track Status</button>
+            <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="btn btn-glass"><i class="fa-brands fa-discord"></i> Open Discord Ticket</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TRACK ORDER MODAL -->
+  <div class="modal-overlay" id="trackerModal">
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <i class="fa-solid fa-box-open text-cyan"></i>
+          <div>
+            <h3 class="modal-title">Live Order Tracker</h3>
+            <p class="modal-subtitle">Track fulfillment progress in real time</p>
+          </div>
+        </div>
+        <button class="modal-close" id="closeTrackerModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="track-search-bar">
+          <input type="text" id="trackSearchInput" placeholder="Enter Order ID (e.g. CRD-1001-A)...">
+          <button class="btn btn-primary" id="btnSearchTrack"><i class="fa-solid fa-magnifying-glass"></i> Track</button>
+        </div>
+
+        <div id="trackerDetailsView" class="tracker-details" style="display: none;">
+          <div class="track-meta-card glass-card">
+            <div class="meta-item">
+              <span class="meta-label">ORDER ID</span>
+              <span class="meta-val" id="trackOrderIdDisplay">CRD-1001-A</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">SERVICE</span>
+              <span class="meta-val" id="trackServiceDisplay">14x Server Boosts (1 Month)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">STATUS</span>
+              <span class="status-pill status-processing" id="trackStatusBadge">Processing</span>
+            </div>
+          </div>
+
+          <!-- Progress Stepper -->
+          <div class="track-stepper">
+            <div class="step-node completed" id="step1">
+              <div class="node-circle"><i class="fa-solid fa-check"></i></div>
+              <span class="node-label">Order Placed</span>
+            </div>
+            <div class="step-line active" id="line1"></div>
+            <div class="step-node active" id="step2">
+              <div class="node-circle"><i class="fa-solid fa-file-invoice"></i></div>
+              <span class="node-label">Verification</span>
+            </div>
+            <div class="step-line" id="line2"></div>
+            <div class="step-node" id="step3">
+              <div class="node-circle"><i class="fa-solid fa-spinner"></i></div>
+              <span class="node-label">In Delivery</span>
+            </div>
+            <div class="step-line" id="line3"></div>
+            <div class="step-node" id="step4">
+              <div class="node-circle"><i class="fa-solid fa-box-check"></i></div>
+              <span class="node-label">Completed</span>
+            </div>
+          </div>
+
+          <div class="track-info-note glass-card">
+            <i class="fa-solid fa-circle-info text-cyan"></i>
+            <p id="trackStatusMessage">Your order is currently being verified by our automated queue. Delivery typically takes 5–20 minutes.</p>
+          </div>
+        </div>
+
+        <div id="trackerNotFoundView" class="tracker-empty" style="display: none;">
+          <i class="fa-solid fa-triangle-exclamation text-amber"></i>
+          <h4>Order Not Found</h4>
+          <p>Please double-check your Order ID or contact support in our Discord server.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. LOGIN MODAL -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-card glass-card modal-sm">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <i class="fa-brands fa-discord text-blue"></i>
+          <div>
+            <h3 class="modal-title">Discord Authentication</h3>
+            <p class="modal-subtitle">Connect your account for faster checkout</p>
+          </div>
+        </div>
+        <button class="modal-close" id="closeLoginModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <div class="discord-login-graphic">
+          <img src="assets/logo.png" alt="Credify" class="login-logo-img">
+        </div>
+        <p class="login-modal-desc">
+          Sign in using your Discord account to save your delivery servers, view purchase history, and manage active tickets.
+        </p>
+        <button class="btn btn-discord btn-block btn-lg" id="btnSimulateDiscordLogin">
+          <i class="fa-brands fa-discord"></i> Continue with Discord
+        </button>
+        <p class="login-terms-note">
+          We only request public profile & username access.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. LEGAL POLICIES MODAL -->
+  <div class="modal-overlay" id="legalModal">
+    <div class="modal-card glass-card modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <i class="fa-solid fa-scale-balanced text-cyan"></i>
+          <div>
+            <h3 class="modal-title" id="legalModalTitle">Terms of Service</h3>
+            <p class="modal-subtitle">Credify Official Policies</p>
+          </div>
+        </div>
+        <button class="modal-close" id="closeLegalModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body legal-content" id="legalModalContent">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. REAL-TIME WEB TICKET LIVE CHAT MODAL -->
+  <div class="modal-overlay" id="liveChatModal">
+    <div class="modal-card glass-card chat-modal-card">
+      <div class="chat-modal-header">
+        <div class="chat-channel-meta">
+          <div class="chat-status-indicator">
+            <span class="pulse-dot green-dot"></span>
+          </div>
+          <div>
+            <h3 class="chat-header-title" id="chatTicketName">#web-support-0001</h3>
+            <span class="chat-header-status">🟢 Live With Staff & Bot Bridge</span>
+          </div>
+        </div>
+        <div class="chat-header-actions">
+          <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-sm" id="chatOpenDiscordBtn" title="Open directly in Discord app">
+            <i class="fa-brands fa-discord"></i> Open in Discord
+          </a>
+          <button class="btn btn-outline btn-sm" id="chatMinimizeBtn" title="Minimize chat and keep active in background">
+            <i class="fa-solid fa-window-minimize"></i> Minimize
+          </button>
+          <button class="btn btn-outline btn-sm text-red" id="chatEndTicketBtn" title="Close and end ticket">
+            <i class="fa-solid fa-lock"></i> Close
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Feed -->
+      <div class="chat-messages-body" id="chatMessagesFeed">
+        <!-- Live Chat bubbles injected dynamically via chat.js -->
+      </div>
+
+      <!-- Chat Footer Bar -->
+      <div class="chat-footer-bar">
+        <form id="chatInputForm" class="chat-form-row">
+          <input type="text" id="chatMessageInput" placeholder="Type a message to Discord staff..." autocomplete="off" required>
+          <button type="submit" class="btn btn-primary btn-glow" id="btnSendChatMessage">
+            <i class="fa-solid fa-paper-plane"></i> Send
+          </button>
+        </form>
+        <div class="chat-disclaimer">
+          <span>⚡ Messages sync directly with our Discord server desk in real time.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING PERSISTENT ACTIVE TICKET PILL -->
+  <div id="floatingTicketPill" class="floating-ticket-pill glass-card hover-glow" style="display: none;">
+    <span class="pulse-dot green-dot"></span>
+    <span id="pillTicketTitle">💬 Active Ticket: #web-support-0001</span>
+    <i class="fa-solid fa-arrow-up-right-from-square text-cyan"></i>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/particles.js"></script>
+  <script src="js/stock.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/tracker.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

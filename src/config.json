@@ -1,0 +1,13 @@
+{
+  "prefix": "/",
+  "embedColor": "#00A8FF",
+  "successColor": "#00E676",
+  "errorColor": "#FF3D57",
+  "warningColor": "#FFC107",
+  "ticketSupportColor": "#00A8FF",
+  "ticketPurchaseColor": "#00D2D3",
+  "footerText": "Credify Portal • Fast & Secure",
+  "discordInvite": "https://discord.gg/5A63uwSJ6R",
+  "defaultTicketCategory": "TICKETS",
+  "maxOpenTicketsPerUser": 3
+}

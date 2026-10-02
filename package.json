@@ -1,0 +1,27 @@
+{
+  "name": "credify",
+  "version": "1.0.0",
+  "description": "Credify Discord Bot - Advanced Ticket & Moderation Suite",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "web": "node server.js",
+    "deploy": "node deploy-commands.js"
+  },
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "tickets",
+    "moderation",
+    "discord-js"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "ms": "^2.1.3"
+  }
+}
