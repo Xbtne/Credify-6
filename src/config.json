@@ -9,5 +9,11 @@
   "footerText": "Credify Portal • Fast & Secure",
   "discordInvite": "https://discord.gg/5A63uwSJ6R",
   "defaultTicketCategory": "TICKETS",
-  "maxOpenTicketsPerUser": 3
+  "maxOpenTicketsPerUser": 3,
+  "bumpReminder": {
+    "channelId": "1555699939978387625",
+    "disboardUrl": "https://disboard.org/server/1555647999915593728",
+    "intervalMs": 7200000,
+    "disboardBotId": "302050872383242240"
+  }
 }

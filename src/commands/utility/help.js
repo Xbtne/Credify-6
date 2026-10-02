@@ -50,6 +50,7 @@ module.exports = {
           name: '⚡ Utility',
           value:
             '`/stock` - Post live product stock and inventory update\n' +
+            '`/bumpreminder` - View bump countdown status and settings\n' +
             '`/help` - View this help menu\n' +
             '`/ping` - View bot latency & API ping\n' +
             '`/botinfo` - System info & bot statistics',

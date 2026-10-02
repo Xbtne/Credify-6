@@ -25,5 +25,9 @@ module.exports = {
     if (client.registerSlashCommands) {
       await client.registerSlashCommands();
     }
+
+    // Initialize bump reminder system
+    const bumpReminder = require('../utils/bumpReminder');
+    await bumpReminder.init(client);
   }
 };

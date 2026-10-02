@@ -180,6 +180,29 @@ class Database {
     const guild = this.getGuild(guildId);
     return guild.modlogs;
   }
+
+  // --- Bump Reminder ---
+  getBumpConfig(guildId) {
+    const guild = this.getGuild(guildId);
+    if (!guild.bumpConfig) {
+      guild.bumpConfig = {
+        channelId: '1555699939978387625',
+        enabled: true,
+        lastBumpTime: null,
+        lastBumperId: null,
+        nextBumpTime: null
+      };
+      this._write();
+    }
+    return guild.bumpConfig;
+  }
+
+  updateBumpConfig(guildId, updates) {
+    const guild = this.getGuild(guildId);
+    guild.bumpConfig = { ...(guild.bumpConfig || {}), ...updates };
+    this._write();
+    return guild.bumpConfig;
+  }
 }
 
 module.exports = new Database();
