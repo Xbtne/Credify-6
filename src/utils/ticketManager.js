@@ -328,58 +328,62 @@ class TicketManager {
   }
 
   /**
-   * Prompts close confirmation with buttons
+   * Prompts close or directly closes ticket
    */
   async handleCloseConfirm(interaction) {
-    const row = new ActionRowBuilder().addComponents(
-      new ButtonBuilder()
-        .setCustomId('ticket_close_execute')
-        .setLabel('Yes, Close Ticket')
-        .setEmoji('🔒')
-        .setStyle(ButtonStyle.Danger),
-      new ButtonBuilder()
-        .setCustomId('ticket_close_cancel')
-        .setLabel('Cancel')
-        .setStyle(ButtonStyle.Secondary)
-    );
-
-    return interaction.reply({
-      content: '⚠️ Are you sure you want to close this ticket?',
-      components: [row],
-      ephemeral: true
-    });
+    return this.handleCloseExecute(interaction);
   }
 
   /**
-   * Closes and saves transcript
+   * Closes ticket, removes author permissions, and displays post-close controls
    */
   async handleCloseExecute(interaction) {
-    const { guild, channel, user } = interaction;
-    const ticket = db.getTicket(guild.id, channel.id);
+    const { guild, channel, user, member } = interaction;
+    let ticket = db.getTicket(guild.id, channel.id);
 
+    // If ticket is not in db, create fallback object
     if (!ticket) {
-      return interaction.reply({
-        content: '❌ This channel is not an active ticket in the database.',
-        ephemeral: true
-      });
+      ticket = {
+        authorId: null,
+        number: channel.name.replace(/[^0-9]/g, '') || '0000',
+        type: channel.name.includes('purchase') ? 'purchase' : 'support',
+        status: 'open'
+      };
     }
 
-    db.updateTicket(guild.id, channel.id, { status: 'closed', closedAt: Date.now() });
+    // Acknowledge interaction
+    if (!interaction.replied && !interaction.deferred) {
+      await interaction.deferReply({ ephemeral: true }).catch(() => {});
+    }
 
-    // Revoke send permissions for creator
-    await channel.permissionOverwrites.edit(ticket.authorId, {
-      ViewChannel: false,
-      SendMessages: false
-    });
+    try {
+      db.updateTicket(guild.id, channel.id, { status: 'closed', closedAt: Date.now() });
+    } catch (e) {
+      console.error('[TicketManager] DB update error on close:', e);
+    }
+
+    // Revoke send and view permissions for creator if present
+    if (ticket.authorId) {
+      try {
+        await channel.permissionOverwrites.edit(ticket.authorId, {
+          ViewChannel: false,
+          SendMessages: false
+        });
+      } catch (e) {
+        console.warn('[TicketManager] Could not update author permissions:', e.message);
+      }
+    }
 
     const closedEmbed = new EmbedBuilder()
       .setColor(config.errorColor)
       .setTitle('🔒 Ticket Closed')
       .setDescription(
-        `Ticket closed by <@${user.id}>.\n` +
-        'Staff can delete this channel using the button below or generate a transcript.'
+        `This ticket has been closed by <@${user.id}>.\n\n` +
+        '• Click **🔓 Reopen** to restore user access.\n' +
+        '• Click **📑 Transcript** to download the chat history.\n' +
+        '• Click **🗑️ Delete** to permanently remove this channel.'
       )
-      .setFooter({ text: config.footerText })
+      .setFooter({ text: `${config.footerText} • Credify Ticket System` })
       .setTimestamp();
 
     const postCloseRow = new ActionRowBuilder().addComponents(
@@ -400,30 +404,44 @@ class TicketManager {
         .setStyle(ButtonStyle.Danger)
     );
 
-    await interaction.reply({
+    // Send public announcement into the ticket channel
+    await channel.send({
       embeds: [closedEmbed],
       components: [postCloseRow]
-    });
+    }).catch(console.error);
 
-    // Optionally send log to log channel
-    const ticketConfig = db.getTicketConfig(guild.id);
-    if (ticketConfig.logChannel) {
-      const logChan = guild.channels.cache.get(ticketConfig.logChannel);
-      if (logChan) {
-        const transcriptAttachment = await this.generateTranscript(channel);
-        const logEmbed = new EmbedBuilder()
-          .setColor(config.errorColor)
-          .setTitle(`📁 Ticket Closed: #${ticket.number || channel.name}`)
-          .addFields(
-            { name: 'Author', value: `<@${ticket.authorId}> (\`${ticket.authorId}\`)`, inline: true },
-            { name: 'Closed By', value: `<@${user.id}> (\`${user.id}\`)`, inline: true },
-            { name: 'Type', value: ticket.type?.toUpperCase() || 'UNKNOWN', inline: true },
-            { name: 'Channel', value: `${channel.name}`, inline: true }
-          )
-          .setTimestamp();
+    if (interaction.deferred || interaction.replied) {
+      await interaction.editReply({
+        content: '✅ Ticket closed successfully.'
+      }).catch(() => {});
+    }
 
-        await logChan.send({ embeds: [logEmbed], files: transcriptAttachment ? [transcriptAttachment] : [] });
+    // Send log to log channel if configured
+    try {
+      const ticketConfig = db.getTicketConfig(guild.id);
+      if (ticketConfig && ticketConfig.logChannel) {
+        const logChan = guild.channels.cache.get(ticketConfig.logChannel);
+        if (logChan) {
+          const transcriptAttachment = await this.generateTranscript(channel);
+          const logEmbed = new EmbedBuilder()
+            .setColor(config.errorColor)
+            .setTitle(`📁 Ticket Closed: #${ticket.number || channel.name}`)
+            .addFields(
+              { name: 'Author', value: ticket.authorId ? `<@${ticket.authorId}> (\`${ticket.authorId}\`)` : 'Unknown / Web', inline: true },
+              { name: 'Closed By', value: `<@${user.id}> (\`${user.id}\`)`, inline: true },
+              { name: 'Type', value: ticket.type?.toUpperCase() || 'SUPPORT', inline: true },
+              { name: 'Channel', value: `${channel.name}`, inline: true }
+            )
+            .setTimestamp();
+
+          await logChan.send({
+            embeds: [logEmbed],
+            files: transcriptAttachment ? [transcriptAttachment] : []
+          }).catch(() => {});
+        }
       }
+    } catch (logErr) {
+      console.error('[TicketManager] Log send error:', logErr);
     }
   }
 
@@ -432,32 +450,36 @@ class TicketManager {
    */
   async handleReopen(interaction) {
     const { guild, channel, user } = interaction;
-    const ticket = db.getTicket(guild.id, channel.id);
+    let ticket = db.getTicket(guild.id, channel.id);
 
-    if (!ticket) {
-      return interaction.reply({
-        content: '❌ This channel is not an active ticket in the database.',
-        ephemeral: true
-      });
+    try {
+      db.updateTicket(guild.id, channel.id, { status: 'open' });
+    } catch (e) {}
+
+    if (ticket && ticket.authorId) {
+      try {
+        await channel.permissionOverwrites.edit(ticket.authorId, {
+          ViewChannel: true,
+          SendMessages: true,
+          AttachFiles: true,
+          ReadMessageHistory: true
+        });
+      } catch (e) {
+        console.warn('[TicketManager] Could not restore author permissions:', e.message);
+      }
     }
 
-    db.updateTicket(guild.id, channel.id, { status: 'open' });
+    const reopenEmbed = new EmbedBuilder()
+      .setColor(config.successColor)
+      .setTitle('🔓 Ticket Reopened')
+      .setDescription(`This ticket has been reopened by <@${user.id}>. The author has access restored.`)
+      .setTimestamp();
 
-    await channel.permissionOverwrites.edit(ticket.authorId, {
-      ViewChannel: true,
-      SendMessages: true,
-      AttachFiles: true,
-      ReadMessageHistory: true
-    });
-
-    return interaction.reply({
-      embeds: [
-        new EmbedBuilder()
-          .setColor(config.successColor)
-          .setTitle('🔓 Ticket Reopened')
-          .setDescription(`This ticket has been reopened by <@${user.id}>. The author now has access again.`)
-      ]
-    });
+    if (!interaction.replied && !interaction.deferred) {
+      await interaction.reply({ embeds: [reopenEmbed] }).catch(() => {});
+    } else {
+      await channel.send({ embeds: [reopenEmbed] }).catch(() => {});
+    }
   }
 
   /**
@@ -465,7 +487,9 @@ class TicketManager {
    */
   async generateTranscript(channel) {
     try {
-      const messages = await channel.messages.fetch({ limit: 100 });
+      const messages = await channel.messages.fetch({ limit: 100 }).catch(() => null);
+      if (!messages) return null;
+
       const sorted = Array.from(messages.values()).reverse();
 
       let transcript = `=== CREDIFY TICKET TRANSCRIPT ===\n`;
@@ -476,9 +500,9 @@ class TicketManager {
 
       for (const msg of sorted) {
         const time = msg.createdAt.toISOString().replace('T', ' ').substring(0, 19);
-        const userTag = msg.author.tag || msg.author.username;
-        transcript += `[${time}] ${userTag} (${msg.author.id}):\n${msg.content || '[Embed / Attachment]'}\n`;
-        if (msg.attachments.size > 0) {
+        const userTag = msg.author ? (msg.author.tag || msg.author.username) : 'System';
+        transcript += `[${time}] ${userTag} (${msg.author?.id || '0'}):\n${msg.content || '[Embed / Attachment]'}\n`;
+        if (msg.attachments && msg.attachments.size > 0) {
           msg.attachments.forEach(att => {
             transcript += `  Attachment: ${att.url}\n`;
           });
@@ -498,19 +522,30 @@ class TicketManager {
    * Sends transcript in current channel
    */
   async handleTranscript(interaction) {
-    await interaction.deferReply();
+    if (!interaction.replied && !interaction.deferred) {
+      await interaction.deferReply().catch(() => {});
+    }
     const attachment = await this.generateTranscript(interaction.channel);
 
     if (!attachment) {
-      return interaction.editReply({
-        content: '❌ Failed to generate transcript.'
-      });
+      const errPayload = { content: '❌ Failed to generate transcript.' };
+      if (interaction.deferred || interaction.replied) {
+        return interaction.editReply(errPayload).catch(() => {});
+      } else {
+        return interaction.reply(errPayload).catch(() => {});
+      }
     }
 
-    return interaction.editReply({
-      content: `📑 **Ticket Transcript generated:**`,
+    const payload = {
+      content: `📑 **Ticket Transcript:**`,
       files: [attachment]
-    });
+    };
+
+    if (interaction.deferred || interaction.replied) {
+      return interaction.editReply(payload).catch(() => {});
+    } else {
+      return interaction.reply(payload).catch(() => {});
+    }
   }
 
   /**
@@ -518,23 +553,28 @@ class TicketManager {
    */
   async handleDelete(interaction) {
     const { channel, guild } = interaction;
-    await interaction.reply({
-      embeds: [
-        new EmbedBuilder()
-          .setColor(config.errorColor)
-          .setDescription('🗑️ Ticket will be deleted in **5 seconds**...')
-      ]
-    });
 
-    db.removeTicket(guild.id, channel.id);
+    try {
+      db.removeTicket(guild.id, channel.id);
+    } catch (e) {}
+
+    const deleteEmbed = new EmbedBuilder()
+      .setColor(config.errorColor)
+      .setDescription('🗑️ Deleting ticket in **3 seconds**...');
+
+    if (!interaction.replied && !interaction.deferred) {
+      await interaction.reply({ embeds: [deleteEmbed] }).catch(() => {});
+    } else {
+      await channel.send({ embeds: [deleteEmbed] }).catch(() => {});
+    }
 
     setTimeout(async () => {
       try {
         await channel.delete('Ticket closed and deleted.');
       } catch (err) {
-        console.error('[TicketManager] Failed to delete channel:', err);
+        console.error('[TicketManager] Failed to delete channel:', err.message);
       }
-    }, 5000);
+    }, 3000);
   }
 }
 
