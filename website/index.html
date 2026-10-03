@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Credify • Premium Discord Growth & Services Marketplace</title>
-  <meta name="description" content="Credify is the premier marketplace for Discord growth services, server boosts, custom bots, members, and digital assets. Fast delivery, secure checkout, and 24/7 dedicated support.">
-  <meta name="keywords" content="Discord services, server boosts, discord members, discord bots, credify, server growth, digital marketplace">
+  <title>Credify • Premium Discord Marketplace & Web Bot Command Center</title>
+  <meta name="description" content="Credify is the premier Discord marketplace & web-based Bot Control Center. Manage moderation, live stock broadcasts, tickets, and growth services directly from the browser.">
+  <meta name="keywords" content="Discord commands, web bot console, bot dashboard, discord services, server boosts, credify, discord moderation">
   
   <!-- Open Graph / Meta -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Credify • Grow Smarter. Build Bigger. Stay Ahead.">
-  <meta property="og:description" content="Premium Discord services, powerful tools, and reliable support — everything you need to take your community further.">
+  <meta property="og:title" content="Credify • Web Bot Control Center & Premium Services">
+  <meta property="og:description" content="Activate bot commands directly from the website, choose channels, answer interactive prompts, and broadcast stock in real time.">
   <meta property="og:image" content="assets/banner.png">
   <meta name="theme-color" content="#00A8FF">
   
@@ -19,7 +19,7 @@
   <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -47,12 +47,13 @@
           <img src="assets/logo.png" alt="Credify Logo" class="brand-logo">
           <div class="logo-glow"></div>
         </div>
-        <span class="brand-name">CREDI<span class="text-cyan">FY</span></span>
+        <span class="brand-name">CREDI<span class="text-cyan">FY</span> <span class="brand-badge">2.0</span></span>
       </a>
 
       <!-- Desktop Links -->
       <div class="nav-links">
         <a href="#hero" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#bot-commands" class="nav-link nav-highlight"><i class="fa-solid fa-terminal text-cyan"></i> Bot Console <span class="nav-pill pulse-badge">NEW</span></a>
         <a href="#services" class="nav-link"><i class="fa-solid fa-cube"></i> Services</a>
         <a href="#stock" class="nav-link"><i class="fa-solid fa-chart-line"></i> Stock <span class="nav-pill">LIVE</span></a>
         <a href="#why" class="nav-link"><i class="fa-solid fa-shield-halved"></i> Why Us</a>
@@ -63,14 +64,14 @@
 
       <!-- Action Buttons -->
       <div class="nav-actions">
+        <a href="#bot-commands" class="btn btn-outline btn-sm cmd-nav-trigger" id="btnNavCmd">
+          <i class="fa-solid fa-bolt text-cyan"></i> <span>Run Commands</span>
+        </a>
         <button class="btn btn-outline" id="btnTrackOrder">
           <i class="fa-solid fa-box-open"></i> <span>Track Order</span>
         </button>
         <button class="btn btn-glass" id="btnLogin">
           <i class="fa-brands fa-discord"></i> <span id="loginText">Login</span>
-        </button>
-        <button class="btn btn-primary btn-glow" id="btnNavGetStarted">
-          <i class="fa-solid fa-bolt"></i> <span>Get Started</span>
         </button>
 
         <!-- Mobile Menu Hamburger -->
@@ -94,6 +95,7 @@
     </div>
     <div class="drawer-links">
       <a href="#hero" class="drawer-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="#bot-commands" class="drawer-link text-cyan"><i class="fa-solid fa-terminal"></i> Web Bot Console <span class="nav-pill">NEW</span></a>
       <a href="#services" class="drawer-link"><i class="fa-solid fa-cube"></i> Services</a>
       <a href="#stock" class="drawer-link"><i class="fa-solid fa-chart-line"></i> Live Stock</a>
       <a href="#why" class="drawer-link"><i class="fa-solid fa-shield-halved"></i> Why Credify</a>
@@ -102,8 +104,8 @@
       <a href="#support" class="drawer-link"><i class="fa-solid fa-headset"></i> Support</a>
     </div>
     <div class="drawer-footer">
+      <a href="#bot-commands" class="btn btn-primary btn-block btn-glow" id="mobileCmdBtn"><i class="fa-solid fa-terminal"></i> Open Bot Console</a>
       <button class="btn btn-outline btn-block" id="mobileTrackBtn"><i class="fa-solid fa-box-open"></i> Track Order</button>
-      <button class="btn btn-primary btn-block btn-glow" id="mobileGetStartedBtn"><i class="fa-solid fa-bolt"></i> Browse Services</button>
     </div>
   </div>
 
@@ -113,21 +115,24 @@
       <div class="hero-content">
         <div class="hero-badge">
           <span class="pulse-dot"></span>
-          <span class="badge-text"><i class="fa-brands fa-discord"></i> Official Discord Marketplace • Fast & Reliable</span>
+          <span class="badge-text"><i class="fa-brands fa-discord"></i> Next-Gen Web Bot Controller & Marketplace</span>
         </div>
         
         <h1 class="hero-title">
-          BUILD YOUR SERVER. <br>
-          <span class="gradient-text">GROW WITH CREDIFY.</span>
+          CONTROL YOUR SERVER. <br>
+          <span class="gradient-text">ACTIVATE BOT CMDS LIVE.</span>
         </h1>
         
         <p class="hero-subtitle">
-          Premium Discord services, powerful tools, and reliable support — everything you need to take your community further.
+          Execute moderation, broadcast live stock updates, deploy ticket systems, and manage your Discord guild directly from your browser with real-time interactive questions.
         </p>
 
         <div class="hero-cta-group">
-          <a href="#services" class="btn btn-primary btn-lg btn-glow">
-            <i class="fa-solid fa-cart-shopping"></i> Browse Services
+          <a href="#bot-commands" class="btn btn-primary btn-lg btn-glow">
+            <i class="fa-solid fa-terminal"></i> Open Command Center
+          </a>
+          <a href="#services" class="btn btn-glass btn-lg">
+            <i class="fa-solid fa-cart-shopping"></i> Marketplace Catalog
           </a>
           <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="btn btn-glass btn-lg">
             <i class="fa-brands fa-discord text-blue"></i> Join Discord
@@ -136,26 +141,26 @@
 
         <div class="hero-metrics">
           <div class="metric-item">
-            <div class="metric-icon"><i class="fa-solid fa-bolt text-cyan"></i></div>
+            <div class="metric-icon"><i class="fa-solid fa-terminal text-cyan"></i></div>
+            <div class="metric-text">
+              <span class="metric-val">15+ Commands</span>
+              <span class="metric-label">Web Terminal</span>
+            </div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-item">
+            <div class="metric-icon"><i class="fa-solid fa-bolt text-green"></i></div>
             <div class="metric-text">
               <span class="metric-val">Instant</span>
-              <span class="metric-label">Fast Processing</span>
+              <span class="metric-label">Discord Sync</span>
             </div>
           </div>
           <div class="metric-divider"></div>
           <div class="metric-item">
-            <div class="metric-icon"><i class="fa-solid fa-shield-check text-green"></i></div>
+            <div class="metric-icon"><i class="fa-solid fa-shield-check text-blue"></i></div>
             <div class="metric-text">
               <span class="metric-val">100% Secure</span>
-              <span class="metric-label">Encrypted Checkout</span>
-            </div>
-          </div>
-          <div class="metric-divider"></div>
-          <div class="metric-item">
-            <div class="metric-icon"><i class="fa-solid fa-headset text-blue"></i></div>
-            <div class="metric-text">
-              <span class="metric-val">24/7 Desk</span>
-              <span class="metric-label">Dedicated Staff</span>
+              <span class="metric-label">Encrypted Engine</span>
             </div>
           </div>
         </div>
@@ -174,27 +179,130 @@
           </div>
 
           <!-- Floating Badges -->
-          <div class="floating-badge badge-top-right glass-card">
-            <i class="fa-solid fa-users text-cyan"></i>
+          <div class="floating-badge badge-top-right glass-card" onclick="window.botCommands?.selectCommand('stock')">
+            <i class="fa-solid fa-chart-line text-cyan"></i>
             <div>
-              <span class="badge-title">+1,000 Members</span>
-              <span class="badge-sub">High Quality Delivery</span>
+              <span class="badge-title">/stock Broadcast</span>
+              <span class="badge-sub">Click to Activate</span>
             </div>
           </div>
 
-          <div class="floating-badge badge-bottom-left glass-card">
-            <i class="fa-solid fa-crown text-amber"></i>
+          <div class="floating-badge badge-bottom-left glass-card" onclick="window.botCommands?.selectCommand('lock')">
+            <i class="fa-solid fa-lock text-amber"></i>
             <div>
-              <span class="badge-title">Server Boosts</span>
-              <span class="badge-sub">Level 3 Unlocked</span>
+              <span class="badge-title">Emergency Lockdown</span>
+              <span class="badge-sub">One-Click Protection</span>
             </div>
           </div>
 
-          <div class="floating-badge badge-bottom-right glass-card">
-            <i class="fa-solid fa-robot text-blue"></i>
+          <div class="floating-badge badge-bottom-right glass-card" onclick="window.botCommands?.selectCommand('ticketssetup')">
+            <i class="fa-solid fa-ticket text-blue"></i>
             <div>
-              <span class="badge-title">Custom Bots</span>
-              <span class="badge-sub">24/7 High Uptime</span>
+              <span class="badge-title">2-Button Ticket Panel</span>
+              <span class="badge-sub">Deploy to Channel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOT COMMAND CENTER SECTION (NEW) ================= -->
+  <section id="bot-commands" class="cmd-center-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag"><i class="fa-solid fa-terminal"></i> WEB BOT CONTROLLER</span>
+        <h2 class="section-title">Discord Bot <span class="gradient-text">Command Center</span></h2>
+        <p class="section-subtitle">
+          Select any bot command, pick your Discord channel, answer dynamic parameter questions, and execute actions instantly with real-time feedback.
+        </p>
+      </div>
+
+      <!-- Guild Status & Quick Preset Bar -->
+      <div class="cmd-top-bar glass-card">
+        <div class="cmd-status-box" id="guildStatusBadge">
+          <span class="pulse-dot green-dot"></span>
+          <span>Connecting to Discord Bot Client...</span>
+        </div>
+
+        <div class="cmd-quick-presets">
+          <span class="presets-label"><i class="fa-solid fa-bolt text-cyan"></i> Quick Presets:</span>
+          <div class="presets-buttons-wrap" id="cmdQuickActions">
+            <!-- Dynamic Presets -->
+          </div>
+        </div>
+
+        <div class="cmd-actions-right">
+          <button class="btn btn-outline btn-sm" id="btnRefreshChannels" title="Refresh Discord Channels">
+            <i class="fa-solid fa-rotate"></i> <span>Sync Channels</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Command Category Selector Tabs -->
+      <div class="cmd-category-tabs" id="cmdCategoryTabs">
+        <button class="cmd-tab-btn active" data-category="all"><i class="fa-solid fa-grid-2"></i> All Commands</button>
+        <button class="cmd-tab-btn" data-category="moderation"><i class="fa-solid fa-shield-halved"></i> Moderation</button>
+        <button class="cmd-tab-btn" data-category="broadcasts"><i class="fa-solid fa-bullhorn"></i> Broadcasts & Stock</button>
+        <button class="cmd-tab-btn" data-category="tickets"><i class="fa-solid fa-ticket"></i> Tickets & Setup</button>
+        <button class="cmd-tab-btn" data-category="utility"><i class="fa-solid fa-wrench"></i> Utility & Diagnostics</button>
+      </div>
+
+      <!-- Commands Grid & Interactive Execution Workspace -->
+      <div class="cmd-workspace-grid">
+        <!-- 1. Command Selector List -->
+        <div class="cmd-list-col">
+          <h4 class="col-title"><i class="fa-solid fa-list text-cyan"></i> 1. Choose Command</h4>
+          <div class="cmd-grid-cards" id="commandGrid">
+            <!-- Dynamically populated via commands.js -->
+          </div>
+        </div>
+
+        <!-- 2. Dynamic Questionnaire & Parameter Form -->
+        <div class="cmd-form-col glass-card">
+          <h4 class="col-title"><i class="fa-solid fa-clipboard-question text-cyan"></i> 2. Configure Parameters & Channel</h4>
+          <div id="cmdDynamicForm" class="dynamic-form-box">
+            <div class="form-placeholder">
+              <i class="fa-solid fa-hand-pointer fa-bounce text-cyan"></i>
+              <p>Select a command from the left to load its interactive questionnaire.</p>
+            </div>
+          </div>
+
+          <div class="cmd-submit-box">
+            <button type="button" class="btn btn-primary btn-block btn-lg btn-glow" id="btnExecuteCommand">
+              <i class="fa-solid fa-paper-plane"></i> <span>Execute Command in Discord</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Live Syntax Preview & Rich Embed Mockup -->
+        <div class="cmd-preview-col">
+          <div class="cmd-preview-card glass-card">
+            <h4 class="col-title"><i class="fa-solid fa-eye text-cyan"></i> 3. Live Action & Embed Preview</h4>
+            
+            <div class="preview-syntax-box">
+              <span class="syntax-label"><i class="fa-solid fa-terminal"></i> Slash Command Syntax:</span>
+              <code id="cmdPreviewSyntax" class="syntax-code">/ping</code>
+            </div>
+
+            <div class="preview-embed-box" id="cmdPreviewEmbed">
+              <!-- Live Discord Embed Preview Injected Here -->
+            </div>
+          </div>
+
+          <!-- Cyber Terminal Audit Console -->
+          <div class="cmd-terminal-card glass-card">
+            <div class="terminal-header">
+              <div class="terminal-title">
+                <i class="fa-solid fa-terminal text-green"></i>
+                <span>Live Bot Action Console</span>
+              </div>
+              <button class="btn-clear-term" id="btnClearTerminalLogs" title="Clear Console">
+                <i class="fa-solid fa-ban"></i>
+              </button>
+            </div>
+            <div class="terminal-body" id="cmdTerminalLogs">
+              <!-- Log lines stream here -->
             </div>
           </div>
         </div>
@@ -216,13 +324,13 @@
           <div class="why-icon-box cyan-glow">
             <i class="fa-solid fa-bolt"></i>
           </div>
-          <h3 class="why-title">Fast Service</h3>
+          <h3 class="why-title">Web Bot Control</h3>
           <p class="why-desc">
-            Automated workflows and rapid dispatch ensure your orders, boosts, and setups begin processing immediately after confirmation.
+            Activate bot actions, lockdowns, message purges, and stock updates straight from our responsive web control desk with zero latency.
           </p>
           <div class="why-feature-list">
-            <span><i class="fa-solid fa-check text-cyan"></i> Instant start times</span>
-            <span><i class="fa-solid fa-check text-cyan"></i> Automated queue handling</span>
+            <span><i class="fa-solid fa-check text-cyan"></i> Live interactive questionnaires</span>
+            <span><i class="fa-solid fa-check text-cyan"></i> Direct channel dispatcher</span>
           </div>
         </div>
 
@@ -246,11 +354,11 @@
           </div>
           <h3 class="why-title">Dedicated Support</h3>
           <p class="why-desc">
-            Direct access to knowledgeable support agents via interactive Discord ticket desks and web inquiry management.
+            Direct access to knowledgeable support agents via interactive Discord ticket desks and web live chat sync.
           </p>
           <div class="why-feature-list">
             <span><i class="fa-solid fa-check text-blue"></i> Real human assistance</span>
-            <span><i class="fa-solid fa-check text-blue"></i> Fast response windows</span>
+            <span><i class="fa-solid fa-check text-blue"></i> 2-Way Discord chat sync</span>
           </div>
         </div>
 
@@ -258,7 +366,7 @@
           <div class="why-icon-box purple-glow">
             <i class="fa-solid fa-crown"></i>
           </div>
-          <h3 class="why-title">Premium Services</h3>
+          <h3 class="why-title">Premium Growth</h3>
           <p class="why-desc">
             Every product is rigorously vetted for maximum retention, stability, compliance, and guaranteed delivery warranty.
           </p>
@@ -291,7 +399,7 @@
 
       <!-- Services Grid -->
       <div class="services-grid" id="servicesGrid">
-        <!-- Dynamically rendered via JS or static fallbacks -->
+        <!-- Dynamically rendered via app.js -->
       </div>
     </div>
   </section>
@@ -318,6 +426,9 @@
           </div>
           <button class="btn btn-outline" id="btnRefreshStock" title="Refresh stock data">
             <i class="fa-solid fa-rotate"></i> <span>Refresh</span>
+          </button>
+          <button class="btn btn-primary" onclick="window.botCommands?.selectCommand('stock')">
+            <i class="fa-solid fa-bullhorn"></i> <span>Broadcast Stock</span>
           </button>
         </div>
       </div>
@@ -382,7 +493,7 @@
           Credify was founded with a singular mission: to provide a clean, modern, and trustworthy marketplace for Discord community creators. We eliminate the guesswork and shady dealings common in the space by offering standardized pricing, transparent stock levels, and professional customer care.
         </p>
         <p class="about-text">
-          Whether you need Level 3 Server Boosts to unlock 384Kbps audio and 100MB uploads, tailored member growth campaigns, or custom Discord automation bots, Credify provides the tools to help you succeed.
+          Whether you need Level 3 Server Boosts to unlock 384Kbps audio and 100MB uploads, tailored member growth campaigns, or custom Discord automation bots with direct web command activation, Credify provides the tools to help you succeed.
         </p>
 
         <div class="about-stats-row">
@@ -429,7 +540,7 @@
                 <div class="channel-icon web-bg"><i class="fa-solid fa-ticket"></i></div>
                 <div class="channel-info">
                   <h4>Web Ticket / Inquiry</h4>
-                  <p>Submit a quick inquiry directly through our website form.</p>
+                  <p>Submit a quick inquiry directly through our website live chat.</p>
                 </div>
                 <i class="fa-solid fa-chevron-right channel-arrow"></i>
               </div>
@@ -439,7 +550,7 @@
           <!-- Quick Contact Form -->
           <div class="support-form-side">
             <form id="contactForm" class="contact-form glass-card">
-              <h3 class="form-title"><i class="fa-solid fa-envelope text-cyan"></i> Send a Direct Inquiry</h3>
+              <h3 class="form-title"><i class="fa-solid fa-envelope text-cyan"></i> Open Web Ticket / Direct Inquiry</h3>
               
               <div class="form-group">
                 <label for="contactDiscord">Discord Tag / Username <span class="text-cyan">*</span></label>
@@ -470,7 +581,7 @@
               </div>
 
               <button type="submit" class="btn btn-primary btn-block btn-glow" id="contactSubmitBtn">
-                <i class="fa-solid fa-paper-plane"></i> Submit Inquiry
+                <i class="fa-solid fa-paper-plane"></i> Start Live Ticket Chat
               </button>
             </form>
           </div>
@@ -485,13 +596,25 @@
       <div class="section-header text-center">
         <span class="section-tag"><i class="fa-solid fa-circle-question"></i> FREQUENTLY ASKED QUESTIONS</span>
         <h2 class="section-title">Everything You <span class="gradient-text">Need to Know</span></h2>
-        <p class="section-subtitle">Clear answers to common questions about ordering, delivery, and payments.</p>
+        <p class="section-subtitle">Clear answers to common questions about bot commands, ordering, and delivery.</p>
       </div>
 
       <div class="faq-accordion" id="faqAccordion">
         <div class="faq-item glass-card">
           <button class="faq-question">
-            <span><i class="fa-solid fa-circle-check text-cyan"></i> How does the ordering process work?</span>
+            <span><i class="fa-solid fa-terminal text-cyan"></i> How do the Web Bot Commands work?</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Our Web Command Center connects directly to the Credify Discord Bot via authenticated REST API bridge. You simply choose a command (such as <code>/lock</code>, <code>/purge</code>, <code>/stock</code>, or <code>/ticketssetup</code>), choose the destination channel from the live dropdown, fill in the prompt questions, and click <strong>Execute Command</strong>. The action executes on your server in real time!
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-card">
+          <button class="faq-question">
+            <span><i class="fa-solid fa-circle-check text-cyan"></i> How does the service ordering process work?</span>
             <i class="fa-solid fa-chevron-down faq-icon"></i>
           </button>
           <div class="faq-answer">
@@ -548,18 +671,6 @@
             </p>
           </div>
         </div>
-
-        <div class="faq-item glass-card">
-          <button class="faq-question">
-            <span><i class="fa-solid fa-chart-simple text-cyan"></i> How frequently is the /stock section updated?</span>
-            <i class="fa-solid fa-chevron-down faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Our live stock dashboard updates in real time based on active inventory supplies and market rates. You can click the "Refresh" button on the Stock section at any moment to pull the latest status.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -576,7 +687,7 @@
           “Grow smarter. Build bigger. Stay ahead.”
         </p>
         <p class="footer-desc">
-          Credify is the premier marketplace offering Discord growth services, server boosts, custom bot solutions, and digital tooling.
+          Credify is the premier marketplace offering Discord growth services, server boosts, custom bot solutions, and web command activation.
         </p>
         <div class="footer-socials">
           <a href="https://discord.gg/5A63uwSJ6R" target="_blank" rel="noopener noreferrer" class="social-btn" title="Join Discord"><i class="fa-brands fa-discord"></i></a>
@@ -589,7 +700,8 @@
         <h4 class="footer-heading">Navigation</h4>
         <ul class="footer-links">
           <li><a href="#hero">Home</a></li>
-          <li><a href="#services">Services</a></li>
+          <li><a href="#bot-commands" class="text-cyan">Bot Command Center</a></li>
+          <li><a href="#services">Services Catalog</a></li>
           <li><a href="#stock">Live Stock</a></li>
           <li><a href="#why">Why Credify</a></li>
           <li><a href="#about">About Us</a></li>
@@ -621,10 +733,10 @@
 
     <div class="footer-bottom">
       <div class="container footer-bottom-flex">
-        <p class="copyright">&copy; <span id="yearSpan"></span> Credify. All rights reserved. Not affiliated with Discord Inc.</p>
+        <p class="copyright">&copy; <span id="yearSpan"></span> Credify 2.0 (Backup Edition). All rights reserved.</p>
         <div class="status-indicator">
           <span class="pulse-dot green-dot"></span>
-          <span>All Systems Operational</span>
+          <span>Web Bot Dispatcher Operational</span>
         </div>
       </div>
     </div>
@@ -974,6 +1086,7 @@
   <script src="js/checkout.js"></script>
   <script src="js/tracker.js"></script>
   <script src="js/chat.js"></script>
+  <script src="js/commands.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
